@@ -69,24 +69,38 @@ class MyHomePage extends StatelessWidget {
           SliverList(
             delegate: SliverChildListDelegate.fixed(
               <Widget>[
-                Container(
-                  height: 400,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      Expanded(
-                        child: Image.network(
-                          "https://i.imgur.com/9eW69Yx.jpg",
-                          fit: BoxFit.cover,
-                        ),
+                Wrap(
+                  alignment: WrapAlignment.center,
+                  children: <Widget>[
+                    LimitedBox(
+                      child: Image.network(
+                        "https://i.imgur.com/9eW69Yx.jpg",
+                        fit: BoxFit.cover,
+                        width: 400,
                       ),
-                      Expanded(
-                        flex: 2,
-                        child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.all(24.0),
+                    ),
+                    LayoutBuilder(
+                      builder:
+                          (BuildContext context, BoxConstraints constraints) {
+                        print(constraints.maxWidth);
+                        print(constraints.maxHeight);
+                        var width  =400.0;
+                        var height = 400.0;
+                        if(constraints.maxWidth-400 > 400){
+                          width = constraints.maxWidth-400;
+
+                        }
+                        print("width $width");
+
+                        return Container(
+                          width: width,
+                          height: height,
+                          color: Colors.deepOrangeAccent,
+                          child: Center(
                             child: Column(
-                              mainAxisSize: MainAxisSize.min,
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                                 AutoSizeText.rich(
                                   TextSpan(children: [
@@ -94,7 +108,7 @@ class MyHomePage extends StatelessWidget {
                                     TextSpan(
                                         text: "Awesome ",
                                         style: TextStyle(
-                                            color: Colors.deepOrangeAccent,
+                                            color: Colors.black,
                                             inherit: true)),
                                     TextSpan(text: "Software Developer")
                                   ]),
@@ -104,8 +118,9 @@ class MyHomePage extends StatelessWidget {
                                 ),
                                 Container(
                                   width: 500,
+                                  margin: EdgeInsets.symmetric(horizontal: 32),
                                   child: AutoSizeText(
-                                    "I'm the kind of person you'd call if have a problem. I have experience with android, ios, web, desktop and flutter. I've organized several events that have to do with technology and software development and I made this website in one day using flutter web..",
+                                    "I'm the kind of person you'd call if you have a problem. I have experience with android, ios, web, desktop and flutter. I've organized several events that have to do with technology and software development and I made this website in one day using flutter web..",
                                     textAlign: TextAlign.justify,
                                     maxLines: 11,
                                     style: Theme.of(context).textTheme.title,
@@ -114,10 +129,10 @@ class MyHomePage extends StatelessWidget {
                               ],
                             ),
                           ),
-                        ),
-                      ),
-                    ],
-                  ),
+                        );
+                      },
+                    ),
+                  ],
                 ),
                 Container(
                   margin: EdgeInsets.symmetric(vertical: 50),
@@ -213,21 +228,21 @@ class ContentCard extends StatelessWidget {
                 size: 60,
                 color: Colors.deepOrangeAccent,
               ),
-              Text(
+              AutoSizeText(
                 title,
+                maxLines: 1,
                 style: Theme.of(context)
                     .textTheme
                     .display1
                     .copyWith(color: Colors.deepOrangeAccent),
               ),
-              Expanded(
-                child: Text(
-                  description,
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.title,
-                ),
-              )
-            ],
+Expanded(child:               AutoSizeText(
+  description,
+  maxLines: 6,
+  textAlign: TextAlign.center,
+  style: Theme.of(context).textTheme.title,
+)
+  ,)],
           ),
         ),
       ),
