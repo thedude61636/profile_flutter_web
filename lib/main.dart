@@ -7,20 +7,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Nael',
       theme: ThemeData(
           brightness: Brightness.dark,
           primarySwatch: Colors.blue,
           fontFamily: "Tajawal"),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatelessWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +34,6 @@ class MyHomePage extends StatelessWidget {
                 Image.network(
                   "https://i.imgur.com/nQ53sF4.png",
                   fit: BoxFit.cover,
-                  color: Colors.deepOrange,
                 ),
                 OverflowBox(
                   minHeight: 200,
@@ -84,17 +80,19 @@ class MyHomePage extends StatelessWidget {
                           (BuildContext context, BoxConstraints constraints) {
                         print(constraints.maxWidth);
                         print(constraints.maxHeight);
-                        var width  =400.0;
+                        var width = 400.0;
                         var height = 400.0;
-                        if(constraints.maxWidth-400 > 400){
-                          width = constraints.maxWidth-400;
-
+                        if (constraints.maxWidth - 400 > 400) {
+                          width = constraints.maxWidth - 400;
+                        }else {
+                          width = constraints.maxWidth;
                         }
                         print("width $width");
 
                         return Container(
                           width: width,
                           height: height,
+                          padding: EdgeInsets.all(16),
                           color: Colors.deepOrangeAccent,
                           child: Center(
                             child: Column(
@@ -102,19 +100,23 @@ class MyHomePage extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
-                                AutoSizeText.rich(
-                                  TextSpan(children: [
-                                    TextSpan(text: "An "),
-                                    TextSpan(
-                                        text: "Awesome ",
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            inherit: true)),
-                                    TextSpan(text: "Software Developer")
-                                  ]),
-                                  style: Theme.of(context).textTheme.display1,
-                                  textAlign: TextAlign.center,
-                                  maxLines: 2,
+                                Container(
+                                  width: 500,
+                                  margin: EdgeInsets.symmetric(horizontal: 32),
+                                  child: AutoSizeText.rich(
+                                    TextSpan(children: [
+                                      TextSpan(text: "An "),
+                                      TextSpan(
+                                          text: "Awesome ",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              inherit: true)),
+                                      TextSpan(text: "Software Developer")
+                                    ]),
+                                    style: Theme.of(context).textTheme.display1,
+                                    textAlign: TextAlign.center,
+                                    maxLines: 2,
+                                  ),
                                 ),
                                 Container(
                                   width: 500,
@@ -236,13 +238,15 @@ class ContentCard extends StatelessWidget {
                     .display1
                     .copyWith(color: Colors.deepOrangeAccent),
               ),
-Expanded(child:               AutoSizeText(
-  description,
-  maxLines: 6,
-  textAlign: TextAlign.center,
-  style: Theme.of(context).textTheme.title,
-)
-  ,)],
+              Expanded(
+                child: AutoSizeText(
+                  description,
+                  maxLines: 6,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.title,
+                ),
+              )
+            ],
           ),
         ),
       ),
