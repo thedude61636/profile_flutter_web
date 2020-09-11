@@ -11,7 +11,7 @@ const RESOURCES = {
 "assets/assets/fonts/Tajawal-Light.ttf": "fbca61ce5f0321ab500bdbb168b775b0",
 "assets/assets/fonts/Tajawal-Medium.ttf": "2bfe3ee2145f6755e4b5960310daee03",
 "assets/assets/fonts/Tajawal-Regular.ttf": "6b10b55e4df612910047b7e5d596a9d5",
-"assets/FontManifest.json": "eceb7d8f2254f6085a27f9eb345a7f5e",
+"assets/FontManifest.json": "b71175a76466c1d66fd4d245a6219dbf",
 "assets/fonts/MaterialIcons-Regular.otf": "a68d2a28c526b3b070aefca4bac93d25",
 "assets/fonts/MaterialIcons-Regular.ttf": "8ef52a15e44481b41e7db3c7eaf9bb83",
 "assets/fonts/Tajawal-Black.ttf": "d41d8cd98f00b204e9800998ecf8427e",
