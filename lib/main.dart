@@ -1,5 +1,7 @@
-import 'package:flutter_web/material.dart';
-import 'package:profile/auto_size_text/auto_size_text.dart';
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart' as launcher;
 
 void main() => runApp(MyApp());
 
@@ -8,307 +10,221 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Nael',
+      darkTheme: ThemeData.dark().copyWith(
+          backgroundColor: Colors.black, scaffoldBackgroundColor: Colors.black),
       theme: ThemeData(
-          brightness: Brightness.dark,
-          primarySwatch: Colors.blue,
-          fontFamily: "Tajawal"),
-      home: MyHomePage(),
+        brightness: Brightness.dark,
+        primarySwatch: Colors.blue,
+        fontFamily: "Tajawal",
+      ),
+      home: MyNewHomePage(),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyNewHomePage extends StatefulWidget {
+  @override
+  _MyNewHomePageState createState() => _MyNewHomePageState();
+}
+
+class _MyNewHomePageState extends State<MyNewHomePage> {
+  PageController _pageController;
+  int _oldPage = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController();
+    _pageController.addListener(() {
+      var newPage = _pageController.page.toInt();
+
+      if (newPage != _oldPage) {
+        print([newPage, _oldPage]);
+        setState(() {
+          _oldPage = newPage;
+        });
+      }
+    });
+  }
+
+  List<Widget> pages = [
+    Center(
+      child: OneText(
+        "Nael.one",
+        minFontSize: 34,
+      ),
+    ),
+    Center(
+      child: OneText(
+        "It's the one and only\nNael",
+        minFontSize: 34,
+      ),
+    ),
+    Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        OneText(
+          "I fix problems\n Contact me if you need something fixed",
+          minFontSize: 34,
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: OneButton(
+            onPressed: () => openLink("mailto:me@nael.one"),
+            child: OneText(
+              "me@nael.one",
+              minFontSize: 34,
+            ),
+          ),
+        ),
+      ],
+    ),
+    Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        OneText(
+          "Things I contributed to",
+          minFontSize: 34,
+        ),
+        Wrap(
+          spacing: 8,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          alignment: WrapAlignment.center,
+          children: [
+            OneButton(
+                onPressed: () =>
+                    openLink("https://www.facebook.com/CodeLabBootcamp/"),
+                child: OneText(
+                  "Codelab",
+                  minFontSize: 20,
+                )),
+            OneButton(
+                onPressed: () =>
+                    openLink("https://www.facebook.com/GDGBaghdad/"),
+                child: OneText(
+                  "GDG Baghdad",
+                  minFontSize: 20,
+                )),
+            OneButton(
+                onPressed: () => openLink("https://www.facebook.com/d3stud/"),
+                child: OneText(
+                  "d3Studio",
+                  minFontSize: 20,
+                )),
+          ],
+        ),
+      ],
+    ),
+    Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        OneText(
+          "Latest thing I made",
+          minFontSize: 34,
+        ),
+        OneButton(
+            onPressed: () => openLink(
+                "https://play.google.com/store/apps/details?id=com.ardunic.app"),
+            child: OneText(
+              "Ardunic",
+              minFontSize: 32,
+            )),
+      ],
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        physics: BouncingScrollPhysics(),
-        slivers: <Widget>[
-          SliverAppBar(
-            expandedHeight: 600,
-            flexibleSpace: Stack(
-              alignment: Alignment(0, 0),
-              fit: StackFit.expand,
-              children: <Widget>[
-                Image.network(
-                  "https://i.imgur.com/nQ53sF4.png",
-                  fit: BoxFit.cover,
-                ),
-                OverflowBox(
-                  minHeight: 200,
-                  maxHeight: 600,
-                  alignment: Alignment.center,
-                  child: Center(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        AutoSizeText("Nael Al Abbasi",
-                            maxLines: 1,
-                            minFontSize: 34,
-                            style: Theme.of(context).textTheme.display4),
-                        AutoSizeText(
-                          "Software Developer",
-                          maxLines: 1,
-                          minFontSize: 20,
-                          style: Theme.of(context).textTheme.display1,
-                          textAlign: TextAlign.center,
-                        )
-                      ],
-                    ),
-                  ),
-                )
-              ],
-            ),
+      body: Stack(
+        children: [
+          PageView(
+            controller: _pageController,
+            scrollDirection: Axis.vertical,
+            children: pages,
           ),
-          SliverList(
-            delegate: SliverChildListDelegate.fixed(
-              <Widget>[
-                Wrap(
-                  alignment: WrapAlignment.center,
-                  children: <Widget>[
-                    LimitedBox(
-                      child: Image.network(
-                        "https://i.imgur.com/9eW69Yx.jpg",
-                        fit: BoxFit.cover,
-                        width: 400,
-                      ),
-                    ),
-                    LayoutBuilder(
-                      builder:
-                          (BuildContext context, BoxConstraints constraints) {
-                        print(constraints.maxWidth);
-                        print(constraints.maxHeight);
-                        var width = 400.0;
-                        var height = 400.0;
-                        if (constraints.maxWidth - 400 > 400) {
-                          width = constraints.maxWidth - 400;
-                        }else {
-                          width = constraints.maxWidth;
-                        }
-                        print("width $width");
-
-                        return Container(
-                          width: width,
-                          height: height,
-                          padding: EdgeInsets.all(16),
-                          color: Colors.deepOrangeAccent,
-                          child: Center(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                Container(
-                                  width: 500,
-                                  margin: EdgeInsets.symmetric(horizontal: 32),
-                                  child: AutoSizeText.rich(
-                                    TextSpan(children: [
-                                      TextSpan(text: "An "),
-                                      TextSpan(
-                                          text: "Awesome ",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              inherit: true)),
-                                      TextSpan(text: "Software Developer")
-                                    ]),
-                                    style: Theme.of(context).textTheme.display1,
-                                    textAlign: TextAlign.center,
-                                    maxLines: 2,
-                                  ),
-                                ),
-                                Container(
-                                  width: 500,
-                                  margin: EdgeInsets.symmetric(horizontal: 32),
-                                  child: AutoSizeText(
-                                    "I'm the kind of person you'd call if you have a problem. I have experience with android, ios, web, desktop and flutter. I've organized several events that have to do with technology and software development and I made this website in one day using flutter web..",
-                                    textAlign: TextAlign.justify,
-                                    maxLines: 11,
-                                    style: Theme.of(context).textTheme.title,
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ],
-                ),
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: 50),
-                  child: Wrap(
-                    crossAxisAlignment: WrapCrossAlignment.center,
-                    runAlignment: WrapAlignment.center,
-                    alignment: WrapAlignment.center,
-                    direction: Axis.horizontal,
-                    children: <Widget>[
-                      ContentCard(
-                        title: "Mobile Apps",
-                        icon: Icons.phone_android,
-                        description:
-                            "I make apps, I used to make android apps using java then I moved on to kotlin of course using mvvm and jetpack, more reacently I've switched to flutter and bloc",
-                      ),
-                      ContentCard(
-                        title: "Event Organizing",
-                        icon: Icons.event,
-                        description:
-                            "I'm one of the cofounders of codelab.camp, and GDGBaghdad, We've organized hundreds of events covering wide ranges of the software development field",
-                      ),
-                      ContentCard(
-                        title: "Deskop Apps",
-                        icon: Icons.desktop_windows,
-                        description:
-                            "I'm currently making dekstop apps using WPF deskop applications on windows Using C#",
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  child: Wrap(
-                    alignment: WrapAlignment.center,
-                    children: <Widget>[
-                      CountCard(
-                        icon: Icons.event_available,
-                        count: "200+",
-                        description: "Events organized",
-                      ),
-                      CountCard(
-                        icon: Icons.computer,
-                        count: "100+",
-                        description: "Projects completed",
-                      ),
-                      CountCard(
-                        icon: Icons.stars,
-                        count: "39",
-                        description: "Stars on github",
-                      )
-                    ],
-                  ),
-                ),
-                Container(
-                  height: 300,
-                )
-              ],
+          if (_oldPage < pages.length - 1)
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: IconButton(
+                icon: Icon(Icons.keyboard_arrow_down),
+                onPressed: () {
+                  _pageController.animateToPage(
+                      (_pageController.page + 1).toInt(),
+                      duration: Duration(milliseconds: 400),
+                      curve: Curves.easeInOut);
+                },
+              ),
             ),
-          ),
+          if (_oldPage == pages.length - 1)
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: IconButton(
+                icon: Icon(Icons.keyboard_arrow_up),
+                onPressed: () {
+                  _pageController.animateToPage((2).toInt(),
+                      duration: Duration(milliseconds: 400),
+                      curve: Curves.easeInOut);
+                },
+              ),
+            )
         ],
       ),
     );
   }
+
+  static Future openLink(String s) async {
+    try {
+      await launcher.launch(s);
+    } catch (e) {
+      await Clipboard.setData(ClipboardData(text: "me@nael.one"));
+      print(e);
+    }
+  }
 }
 
-class ContentCard extends StatelessWidget {
-  final String description;
+class OneText extends StatelessWidget {
+  final String text;
+  final double minFontSize;
 
-  final IconData icon;
-
-  final String title;
-
-  const ContentCard(
-      {Key key,
-      @required this.description,
-      @required this.icon,
-      @required this.title})
-      : super(key: key);
+  const OneText(
+    this.text, {
+    Key key,
+    this.minFontSize,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(16),
-      height: 350,
-      width: 400,
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(32),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Icon(
-                icon,
-                size: 60,
-                color: Colors.deepOrangeAccent,
-              ),
-              AutoSizeText(
-                title,
-                maxLines: 1,
-                style: Theme.of(context)
-                    .textTheme
-                    .display1
-                    .copyWith(color: Colors.deepOrangeAccent),
-              ),
-              Expanded(
-                child: AutoSizeText(
-                  description,
-                  maxLines: 6,
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.title,
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
+    return AutoSizeText(
+      text,
+      style: TextStyle(fontFamily: "Tajawal"),
+      textAlign: TextAlign.center,
+      minFontSize: minFontSize,
     );
   }
 }
 
-class CountCard extends StatelessWidget {
-  final String description;
+class OneButton extends StatelessWidget {
+  final Widget child;
+  final Function onPressed;
 
-  final IconData icon;
-
-  final String count;
-
-  const CountCard(
-      {Key key,
-      @required this.description,
-      @required this.icon,
-      @required this.count})
-      : super(key: key);
+  const OneButton({Key key, this.onPressed, this.child}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 400,
-      margin: EdgeInsets.all(16),
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(32),
-          child: Container(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(
-                      icon,
-                      size: 60,
-                      color: Colors.yellow,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        count,
-                        style: Theme.of(context).textTheme.display1,
-                      ),
-                    )
-                  ],
-                ),
-                Text(
-                  description,
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.title,
-                )
-              ],
-            ),
-          ),
-        ),
+    return OutlineButton(
+      onPressed: onPressed,
+      clipBehavior: Clip.antiAlias,
+      highlightedBorderColor: Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(1)),
       ),
+      borderSide: BorderSide(
+        color: Colors.white,
+        width: 3,
+        style: BorderStyle.solid,
+      ),
+      child: child,
     );
   }
 }
