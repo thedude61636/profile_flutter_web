@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.black, scaffoldBackgroundColor: Colors.black),
       theme: ThemeData(
         brightness: Brightness.dark,
-        primarySwatch: Colors.blue,
+        primaryColor: Colors.white,
         fontFamily: "Tajawal",
       ),
       home: MyNewHomePage(),
@@ -123,12 +123,36 @@ class _MyNewHomePageState extends State<MyNewHomePage> {
           minFontSize: 34,
         ),
         OneButton(
-            onPressed: () => openLink(
-                "https://play.google.com/store/apps/details?id=com.ardunic.app"),
-            child: OneText(
-              "Ardunic",
-              minFontSize: 32,
-            )),
+          onPressed: () => openLink(
+              "https://play.google.com/store/apps/details?id=com.ardunic.app"),
+          child: OneText(
+            "Ardunic",
+            minFontSize: 32,
+          ),
+        ),
+      ],
+    ),
+    Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        OneText(
+          "Made With",
+          minFontSize: 32,
+        ),
+        InkWell(
+          child: OneText("🥔",minFontSize: 32,),
+          onTap: () {
+            openLink("https://www.youtube.com/watch?v=sm1qWQUEvfU");
+          },
+        ),
+        InkWell(
+          child: FlutterLogo(
+            size: 32,
+          ),
+          onTap: () {
+            openLink("https://flutter.dev");
+          },
+        ),
       ],
     ),
   ];
@@ -190,7 +214,7 @@ class OneText extends StatelessWidget {
   const OneText(
     this.text, {
     Key key,
-    this.minFontSize,
+    this.minFontSize=32,
   }) : super(key: key);
 
   @override
