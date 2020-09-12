@@ -171,7 +171,7 @@ class _MyNewHomePageState extends State<MyNewHomePage> {
             Align(
               alignment: Alignment.bottomCenter,
               child: IconButton(
-                icon: Icon(Icons.keyboard_arrow_down),
+                icon: OneText("▼"),
                 onPressed: () {
                   _pageController.animateToPage(
                       (_pageController.page + 1).toInt(),
@@ -184,7 +184,7 @@ class _MyNewHomePageState extends State<MyNewHomePage> {
             Align(
               alignment: Alignment.bottomCenter,
               child: IconButton(
-                icon: Icon(Icons.keyboard_arrow_up),
+                icon: OneText("▲"),
                 onPressed: () {
                   _pageController.animateToPage((2).toInt(),
                       duration: Duration(milliseconds: 400),
