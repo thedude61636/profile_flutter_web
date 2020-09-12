@@ -11,9 +11,8 @@ const RESOURCES = {
 "assets/assets/fonts/Tajawal-Light.ttf": "fbca61ce5f0321ab500bdbb168b775b0",
 "assets/assets/fonts/Tajawal-Medium.ttf": "2bfe3ee2145f6755e4b5960310daee03",
 "assets/assets/fonts/Tajawal-Regular.ttf": "6b10b55e4df612910047b7e5d596a9d5",
-"assets/FontManifest.json": "0107521bfe77ab4788c50f718c962c34",
+"assets/FontManifest.json": "70cc781fcf9577269d69489e79686491",
 "assets/fonts/MaterialIcons-Regular.otf": "a68d2a28c526b3b070aefca4bac93d25",
-"assets/fonts/MaterialIcons-Regular.ttf": "a37b0c01c0baf1888ca812cc0508f6e2",
 "assets/fonts/Tajawal-Black.ttf": "d41d8cd98f00b204e9800998ecf8427e",
 "assets/fonts/Tajawal-Bold.ttf": "d41d8cd98f00b204e9800998ecf8427e",
 "assets/fonts/Tajawal-ExtraBold.ttf": "d41d8cd98f00b204e9800998ecf8427e",
@@ -27,7 +26,7 @@ const RESOURCES = {
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
 "index.html": "0368797f2249586d563052d150b9a1f2",
 "/": "0368797f2249586d563052d150b9a1f2",
-"main.dart.js": "5d83e4639ffccc638255f59ca70fec6a",
+"main.dart.js": "d1f99b613b180a5f94fc2b6de7d8374d",
 "manifest.json": "f56640b39255c1f19f9cbc03eb6872a4"
 };
 
